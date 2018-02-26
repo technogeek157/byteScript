@@ -19,8 +19,14 @@ def lex(filecontents):
         curr += char
         if char == ' ':
             detect = curr[:-1]
-            if detect == '\np' or detect == 'p':
+            if detect == '\nprint' or detect == 'print':
                 tokenList.append(['p'])
+
+            elif detect == '\nadd' or detect == 'add':
+                tokenList.append(['a'])
+
+            elif detect == '\ndeclare' or detect == 'declare':
+                tokenList.append(['d'])
 
             elif stringState == True:
                 tokenList.append(['s', curr[1:-2]])
@@ -28,6 +34,13 @@ def lex(filecontents):
 
             elif detect == ';':
                 tokenList.append([';'])
+
+            else:
+                try:
+                    tokenList.append(['n', float(detect)])
+
+                except:
+                    tokenList.append(['v', detect])
         
             curr = ''
 
@@ -54,15 +67,35 @@ def parse(tokenList):
 
 
 def formulate(toFormulate):
-	for i in toFormulate:
-		if i[0][0] == 'p':
-			if i[1][0] == 's':
-				print i[1][1]
+    var = {}
+    for i in toFormulate:
+        command = i[0][0]
+        valueType = i[1][0]
+        valueValue = i[1][1]
+        if command == 'p':
+            if valueType == 's' or valueType == 'n':
+                print valueValue
+
+            elif valueType == 'v':
+                if valueValue in var:
+                    print var[valueValue]
+                else:
+                    print "Error, variable does not exist"
+                    break
+
+        elif command == 'd':
+            if i[2][0] == 'v':
+                print "Declaring a var as a var is not currently supported"
+            else:
+                var[valueValue] = i[2][1]
+
+    print var
 
 def run():
     data = open_file('test.byte')
     tokens = lex(data)
     commands = parse(tokens)
+    print commands
     formulate(commands)
     time.sleep(5)
 run()

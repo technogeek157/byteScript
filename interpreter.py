@@ -25,6 +25,9 @@ def lex(filecontents):
             elif detect == '\nadd' or detect == 'add':
                 tokenList.append(['a'])
 
+            elif detect == "\nifequal" or detect == 'ifequal':
+                tokenList.append(['ie'])
+
             elif detect == '\ndeclare' or detect == 'declare':
                 tokenList.append(['d'])
 
@@ -68,7 +71,10 @@ def parse(tokenList):
 
 def formulate(toFormulate):
     var = {}
-    for i in toFormulate:
+    count = -1
+    while True:
+        count += 1
+        i = toFormulate[count]
         command = i[0][0]
         valueType = i[1][0]
         valueValue = i[1][1]
@@ -88,6 +94,19 @@ def formulate(toFormulate):
                 print "Declaring a var as a var is not currently supported"
             else:
                 var[valueValue] = i[2][1]
+
+        elif command == "a":
+            var[i[3][1]] = var[i[1][1]] + var[i[2][1]]
+
+        elif command == "ie":
+            if var[valueValue] == i[2][1]:
+                pass
+            else:
+                count += 1
+
+
+        if count >= len(toFormulate) -1:
+            break
 
     print var
 

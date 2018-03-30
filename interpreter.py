@@ -31,6 +31,9 @@ def lex(filecontents):
             elif detect == "\nifgreater" or detect == 'ifgreater':
                 tokenlist.append(['ig'])
 
+            elif detect == "\nifless" or detect == 'ifless':
+                tokenlist.append(['il'])
+
             elif detect == '\ndeclare' or detect == 'declare':
                 tokenList.append(['d'])
 
@@ -103,6 +106,18 @@ def formulate(toFormulate):
 
         elif command == "ie":
             if var[valueValue] == i[2][1]:
+                pass
+            else:
+                count += 1
+
+        elif command == "ig":
+            if var[valueValue] > i[2][1]:
+                pass
+            else:
+                count += 1
+
+        elif command == "il":
+            if var[valueValue] < i[2][1]:
                 pass
             else:
                 count += 1

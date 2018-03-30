@@ -12,7 +12,7 @@ def open_file(filename):
 def lex(filecontents):
     #turnes plaintext into a list of tokens
     curr = "" #the current token
-    tokenList= [] #all the tokens
+    tokenList = [] #all the tokens
     stringState = False #if recording a string or not
     
     for char in filecontents:
@@ -29,13 +29,16 @@ def lex(filecontents):
                 tokenList.append(['ie'])
 
             elif detect == "\nifgreater" or detect == 'ifgreater':
-                tokenlist.append(['ig'])
+                tokenList.append(['ig'])
 
             elif detect == "\nifless" or detect == 'ifless':
-                tokenlist.append(['il'])
+                tokenList.append(['il'])
 
             elif detect == '\ndeclare' or detect == 'declare':
                 tokenList.append(['d'])
+
+            elif detect == "\ninputdeclare" or detect == 'inputdeclare':
+                tokenList.append(['id'])
 
             elif stringState == True:
                 tokenList.append(['s', curr[1:-2]])
@@ -122,6 +125,8 @@ def formulate(toFormulate):
             else:
                 count += 1
 
+        elif command == 'id':
+            var[valueValue] = raw_input(valueValue + " ")
 
         if count >= len(toFormulate) -1:
             break

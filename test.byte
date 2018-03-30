@@ -1,3 +1,2 @@
-declare i 10 ; 
-declare k i ; 
-print k ; 
+inputdeclare i ; 
+print i ; 

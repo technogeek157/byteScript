@@ -28,6 +28,9 @@ def lex(filecontents):
             elif detect == "\nifequal" or detect == 'ifequal':
                 tokenList.append(['ie'])
 
+            elif detect == "\nifgreater" or detect == 'ifgreater':
+                tokenlist.append(['ig'])
+
             elif detect == '\ndeclare' or detect == 'declare':
                 tokenList.append(['d'])
 
@@ -91,7 +94,7 @@ def formulate(toFormulate):
 
         elif command == 'd':
             if i[2][0] == 'v':
-                print "Declaring a var as a var is not currently supported"
+                var[i[1][1]] = var[i[2][1]]
             else:
                 var[valueValue] = i[2][1]
 

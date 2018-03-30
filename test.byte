@@ -1,5 +1,3 @@
 declare i 10 ; 
-declare j 20 ; 
-add j i k ; 
-ifequal k 20 ; 
+declare k i ; 
 print k ; 
